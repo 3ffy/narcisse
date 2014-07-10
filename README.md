@@ -31,7 +31,11 @@ The solution
 Live demo
 ---------
 
-todo (see the static version for the moment)
+<http://codepen.io/3ffy/pen/HxEet>
+
+[![A screenshot of Narcisse in action](https://raw.githubusercontent.com/3ffy/narcisse/master/img/demo2.jpg)](http://codepen.io/3ffy/pen/HxEet)
+
+*(or get a look into the `demo/` folder to find the static version)*
 
 > Resize the windows you will see a true fluid layout with the background image always positionned at his best.
 > PS : To simplify the demo and because its purpose wasn't about bootstrap navbar, i used 2 different navbar. If you decide to fork narcisse in your own project, please don't be evil : use only 1 navbar and style it ! Scientist proved each time you duplicate some content, a kitten die somewhere.
