@@ -45,15 +45,41 @@
 			//catch narcisse events (just for the demo)
 			$('#background-container').on('narcisse', function(e, data){
 				console.log('narcisse modified, new background image =', data.key);
+        //reset all narcisse id detector
+        $('#venise1, #venise2, #venise3, #venise4').children('small').remove();
+        //add the detector if the current image background is one of the venisia pictures
+        if(data.key == 'venise1' || data.key == 'venise2' || data.key == 'venise3' || data.key == 'venise4'){
+          var $elem = $('#' + data.key);
+          $elem.append('<small>current</small>'); 
+        }
 			});
 
       //add some direct links to modify current image (just for the demo)
       $('a.narcisse').click(function(e){
         e.preventDefault();
+        var $this = $(this);
         //get the narcisse id from data attributes
-        var id = $(this).data('narcisse-id');
-        //call narcisse manually
-        narcisse(id);
+        var id = $this.data('narcisse-id');
+        var path = $this.data('narcisse-path');
+        //if the id exists inside the list, use it
+        if(typeof path == 'undefined'){
+          //call narcisse manually
+          narcisse(id);
+        }else{
+          //get data from the $element data attributes
+          var position = $this.data('narcisse-position');
+          var bgcolor = $this.data('narcisse-bgcolor');
+          var options = {};
+          options.path = path;
+          if(typeof position != 'undefined'){
+            options.position = position;
+          }
+          if(typeof bgcolor != 'undefined'){
+            options.bgcolor = bgcolor;
+          }
+          //call narcisse manually
+          narcisse(id, options);
+        }
       });
 
       var $window = $(window);
@@ -62,44 +88,24 @@
 			var narcisseRessources = {
 				'venise1':
 					{
-						path: 'img/venise1.jpg'
+            path: 'img/venise1.jpg',
+            position: 46
 					},
 				'venise2':
 					{
-						path: 'img/venise2.jpg',
-						position: 46
+            path: 'img/venise2.jpg',
+            position: 50
+
 					},
 				'venise3':
 					{
-						path: 'img/venise3.jpg',
-						position: 46
+            path: 'img/venise3.jpg',
+            position: 46
 					},
 				'venise4':
 					{
-						path: 'img/venise4.jpg',
-						position: 50
-					},
-        'sacha':
-          {
-            path: 'img/sacha.jpg',
-            position: 11
-          },
-        'pikachu':
-          {
-            path: 'img/pikachu.png',
-            position: 53
-          },
-        'togepi1':
-          {
-            path: 'img/togepi.svg',
-            position: 55
-          },
-        'togepi2':
-          {
-            path: 'img/togepi.svg',
-            position: 55,
-            bgcolor: '#0f0'
-          }
+            path: 'img/venise4.jpg'
+					}
 			};
 
       /**
@@ -112,18 +118,26 @@
        * Narcisse function.
        *
        * @param {string} id [optional] You can provide one of the id of the narcisse ressources object.
+       * @param {object} options [optional] If you want to use your custom id / image manually precise at least the 'path'.
        */
-			var narcisse = function(id){
+			var narcisse = function(id, options){
         var modeManual = typeof id == 'string';
         if(modeManual == true || narcisseAlreadyCalculated == false){
           //do something only if we are not in vieport phone
           var responsive_viewport = window.innerWidth || $window.width();
           if(responsive_viewport >= 768){
-            //get the index & pick to use and check them
-            var index = (modeManual == true)? id : randomProperty(narcisseRessources);
-            var pick = narcisseRessources[index];
-            if(typeof pick == 'undefined'){
-              throw 'The id ' + id + ' can\'t be found in the narcisse ressources.';
+            var pick;
+            var index;
+            if(typeof options == 'undefined'){
+              //get the index & pick to use and check them
+              index = (modeManual == true)? id : randomProperty(narcisseRessources);
+              pick = narcisseRessources[index];
+              if(typeof pick == 'undefined'){
+                throw 'The id ' + id + ' can\'t be found in the narcisse ressources.';
+              }
+            }else{
+              index = id;
+              pick = options;
             }
             //use the pick css property to modify background
             var $elem = $('#background-container');
@@ -143,8 +157,8 @@
 			};
 
       //init narcisse behaviour
-      $window.resize(narcisse);
       narcisse();
+      $window.resize(narcisse);
 
 		});
 	</script>
@@ -204,43 +218,186 @@
         <div id="background-container" class="col-sm-3 col-md-4"></div>
 
         <div id="true-body" class="col-sm-9 col-sm-offset-3 col-md-8 col-md-offset-4">
-          <h1 class="page-header">Dashboard</h1>
-          <div class="row">
-            <ul>
-              <li>
-                <a class="narcisse" data-narcisse-id="venise1" href="#" title="show venise1">Venise1</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="venise2" href="#" title="show venise2">Venise2 (example with an heavy picture +2mo)</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="venise3" href="#" title="show venise3">Venise3</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="venise4" href="#" title="show venise4">Venise4</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="venise1000" href="#" title="show venise1000">Venise1000 (don't exists, just for test narcisse behaviour on errors</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="sacha" href="#" title="show sacha">Example with portrait</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="pikachu" href="#" title="show pikachu">Example with landscape *.png portrait</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="togepi1" href="#" title="show togepi1">Example with transparent *.svg file</a>
-              </li>
-              <li>
-                <a class="narcisse" data-narcisse-id="togepi2" href="#" title="show togepi2">Example with transparent *.svg file and custome background color</a>
-              </li>
-            </ul>
 
-            <p class="alert alert-success">
-              <strong>Holy guacamole !</strong>
-              All these pictures are taken by your servitor during a personal trip in Venisa. They are not part of the licence, please don't use them without my agreement !
+          <section id="title" style="margin-top:30px;"> 
+            <div class="jumbotron">
+              <h1><a href="http://www.aureliengy.com/narcisse">NARCISSE</a> <small>v2.0</small></h1>
+              <br />
+              <p>
+                How to keep a background image at its best of visibility in any vertical responsible website (background image / content).<br />
+              </p>
+              <p style="margin-top:40px;">
+                <a class="btn btn-primary btn-large" href="https://github.com/3ffy/narcisse">More info & Download latest »</a>
+              </p>
+            </div>
+            <div class="row-fluid">
+              <blockquote class="pull-right">
+                <p>
+                  <strong style="font-size:180%;">“</strong> Narcisse got in love with his reflection; he didn't let it out of his sight and died of that illusion that had seduced him. <strong style="font-size:180%;">”</strong>
+                </p>
+                <small>Eugène Fromentin</small>
+              </blockquote>
+            </div>
+          </section>
+
+          <hr />
+
+          <section id="demo">
+            <h2>Demo</h2>
+            <p>
+              Hey guys, just <strong>reload</strong> the page <code>(F5)</code> to see the <strong>4</strong> different random pictures <small>(get a look above)</small>.<br />
+              Play with the size of your browser to see why <a href="https://github.com/3ffy/narcisse">narcisse</a> is a great UX experiment.
             </p>
+            <p class="alert alert-info">
+              This example is based on the <a href="http://twitter.github.com/bootstrap/">Bootstrap CSS framework</a> to manage responsiveness.
+            </p>
+            
+          </section>
+
+          <hr />
+
+          <section id="live_playground">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4 id="venise1" class="text-warning narcisse">The teen and the frog</h4>
+                <p>
+                  This picture is <strong>the perfect example</strong> of why i created <a href="https://github.com/3ffy/narcisse">Narcisse</a>. I want to see the important part of that picture, the statue, whatever the size of the screen is.
+                </p>
+              </div>
+              <div class="col-sm-6">
+                <h4 id="venise2" class="text-warning narcisse">Happy Wood</h4>
+                <p> 
+                  A <strong>landscape mode picture</strong> <small>(width is bigger than the height)</small>.
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <h4 id="venise3" class="text-warning narcisse">The campanile</h4>
+                <p>
+                  An <strong>heavy</strong> picture (>2mo). <br />
+                  As Narcisse is based on pure CSS, even big pictures get a nice rendering <small>(even if it can be degraded temporary when you resize your browser)</small>.
+                </p>
+              </div>
+              <div class="col-sm-6">
+                <h4 id="venise4" class="text-warning narcisse">From the plane</h4>
+                <p>
+                  Instead of cropping your picture, you can <strong>define where the most valuable content is</strong>. So the "disgratious" plane at the right of the picture is hidden when there is not enough space, but still visible when it's possible.
+                </p>
+              </div>
+            </div>
+      
+            <div class="row">
+              <p class="alert alert-success">
+                <strong>Holy guacamole !</strong>
+                All these pictures are taken by your servitor during a personal trip in Venisa. They are not part of the licence, please don't use them without my agreement !
+              </p>
+            </div>
+
+          </section>
+        
+          <hr />
+
+          <section id="purpose">
+            <h2>Purpose <small>in detail</small></h2>
+            
+            <p>
+              So we want to use the unfortunatly landscape mode Pikachu wallpaper as background for our website. In that image, <strong>there is an important content (the Pikachu's face)</strong>. We want to "recenter" the image around his face and make it visible in all the situations.
+            </p>
+            <p style="margin-top:20px;">
+              <img src="img/demo0.jpg" alt="demo0" />
+            </p>
+            <p>
+              The grass is not really relevant, so we will ask to narcisse to focus on the 55th percent of the image (the middle of the face). The navigator will do the rest (move and resize the picture to hide pondarated left and right irrelevant image portions).
+            </p>
+            <p style="margin-top:20px;">
+              <img src="img/demo1.jpg" alt="demo1" />
+            </p>  
+            <p style="margin-top:20px;">
+              <img src="img/demo2.jpg" alt="demo2" />
+            </p>  
+          </section>
+          
+          <hr />
+
+          <section id="live_playground2">
+          <h3>Activation on demand <small>With the pokemon team :D</small></h3>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="text-warning">Sacha</h4>
+              <p> 
+                As you can see, images with white background are not the most beautiful ones because the content background is white too.<br />
+                <br />
+                The best thing is to get high color contrast between content background and the images.
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn btn-lg btn-primary" data-narcisse-id="sacha" data-narcisse-position="11" data-narcisse-path="img/sacha.jpg" href="#" title="show sacha">Click to use Sacha !</a>
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <h4 class="text-warning">Pikachu</h4>
+              <p>
+                A landscape picture with <strong>high contrast</strong> and a big "valuable zone" to preserve.<br />
+                <br />
+                Basically, it's the kind of images which is <span class="text-error">really difficult</span> to use as website background.
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn-warning" data-narcisse-id="pikachu" data-narcisse-position="56" data-narcisse-path="img/pikachu.png" href="#" title="show pikachu">Click to use Pikachu ! (*.png)</a>
+              </p>
+            </div>
           </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <h4 class="text-warning">Togepi 1</h4>
+              <p> 
+                A simple example with an svg file with transparent background.
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn btn-default" data-narcisse-id="togepi1"  data-narcisse-position="55" data-narcisse-path="img/togepi.svg" href="#" title="show togepi1">Click to use Togepi !</a>
+              </p>
+            </div>
+            <div class="col-sm-6">
+              <h4 class="text-warning">Togepi 2</h4>
+              <p>
+                Play with the narcisse options and use a custom background color (green).
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn-success" data-narcisse-id="togepi2"  data-narcisse-position="55" data-narcisse-bgcolor="#0f0" data-narcisse-path="img/togepi.svg" href="#" title="show togepi2">Click to use Disco Togepi !</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="text-warning">Of course you can also manually use the venice images</h4>
+              <p> 
+                With the pokemon team we saw you can call manually Narcisse, but you can also only use the id of an element defined in the list of random images (the venice pictures).
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn btn-info" data-narcisse-id="venise1" href="#" title="show venise1">Click to use venise 1 !</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="text-warning">Behaviour on error</h4>
+              <p> 
+                Call Narcisse image manager with an id whose don't exists (result in console).
+              </p>
+              <p>
+                <a class="narcisse btn btn-lg btn btn-danger" data-narcisse-id="team-rocket" href="#" title="show team-rocket">Click to use The team rocket (or not) ...</a>
+              </p>
+            </div>
+          </div>
+
+        </section>
+        
+        <hr />
+
+          <h2 class="page-header">Some dumb content</h2>
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="200x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzBEOEZEQiIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjEwMCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojZmZmO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEzcHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MjAweDIwMDwvdGV4dD48L3N2Zz4=">

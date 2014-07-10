@@ -1,10 +1,27 @@
-/*
- TODO : transition chelou du body;
- TOOD : marges plus grosses;
- TODO : position relative quand body full screen;
- TODO : faire marcher bootstrap;
- TODO : ne pas charger les images en responsive minimal / faire un système d'image aléatoire en js;
- */
+h4.narcisse small
+{
+  color: #fff;
+  background: #dd4d42;
+  margin: 0 0 0 10px;
+  font-weight: bold;
+  padding: 0 4px;
+  font-style: italic;
+}
+
+.row
+{
+  margin-bottom: 15px;
+}
+
+#page-container > .row
+{
+  margin-bottom: 0;
+}
+
+img
+{
+  max-width: 100%;
+}
 
 .sub-header
 {
@@ -48,8 +65,8 @@
 {
   #page-container > .row
   {
-    margin-right: 0; 
-    margin-left: 0; 
+    margin-right: 0;
+    margin-left: 0;
   }
 
   #background-container
@@ -65,9 +82,9 @@
     overflow-y: auto;
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
-      background-size: cover;
+    background-size: cover;
     background-position: 80% top;
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
     -webkit-transition: width 0.2s linear;
     -moz-transition: width 0.2s linear;
     -ms-transition: width 0.2s linear;
@@ -79,7 +96,7 @@
   {
     background-color: #fff;
     z-index: 2;
-    padding:20px 40px; 
+    padding: 20px 40px;
   }
 
   body > .container-fluid
@@ -178,6 +195,6 @@
 
   #true-body
   {
-    padding:20px;
+    padding: 20px;
   }
 }
