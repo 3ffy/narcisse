@@ -40,6 +40,71 @@ Live demo
 > Resize the windows you will see a true fluid layout with the background image always positionned at his best.
 > PS : To simplify the demo and because its purpose wasn't about bootstrap navbar, i used 2 different navbar. If you decide to fork narcisse in your own project, please don't be evil : use only 1 navbar and style it ! Scientist proved each time you duplicate some content, a kitten die somewhere.
 
+Usage (JS anecdotic part)
+-------------------------
+
+### Define ressources list
+
+```javascript
+var narcisseRessources = {
+    'venise1':
+        {
+path: 'img/venise1.jpg',
+position: 46
+        },
+    'venise2':
+        {
+path: 'img/venise2.jpg',
+position: 50
+
+        },
+    'venise3':
+        {
+path: 'img/venise3.jpg',
+position: 46
+        },
+    'venise4':
+        {
+path: 'img/venise4.jpg'
+        }
+};
+```
+
+### Catch when Narcisse modify the background image
+
+```javascript
+    $('#background-container').on('narcisse', function(e, data){
+        console.log('narcisse modified, new background image =', data.key);
+    });
+```
+
+### Manual call to the manager
+
+```javascript
+/*
+ Ask the manager to show one of the defined ressources
+ */
+narcisse('my-image-id');
+
+
+/*
+ Complete dynamic call
+ */
+var options = {};
+options.path = path;
+if(typeof position != 'undefined'){
+options.position = position;
+}
+if(typeof bgcolor != 'undefined'){
+options.bgcolor = bgcolor;
+}
+//call narcisse manually
+narcisse(id, options);
+
+//an example source for getting values (id & options):
+<a class="narcisse btn btn-lg btn-warning" data-narcisse-id="pikachu" data-narcisse-position="56" data-narcisse-path="img/pikachu.png" href="#" title="show pikachu">Click to use Pikachu ! (*.png)</a>
+```
+
 Licence
 -------
 
