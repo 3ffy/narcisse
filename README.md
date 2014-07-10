@@ -72,9 +72,9 @@ var narcisseRessources = {
 ### Catch when Narcisse modify the background image
 
 ```javascript
-    $('#background-container').on('narcisse', function(e, data){
-        console.log('narcisse modified, new background image =', data.key);
-    });
+$('#background-container').on('narcisse', function(e, data){
+    console.log('narcisse modified, new background image =', data.key);
+});
 ```
 
 ### Manual call to the manager
@@ -92,16 +92,16 @@ narcisse('my-image-id');
 var options = {};
 options.path = path;
 if(typeof position != 'undefined'){
-options.position = position;
+  options.position = position;
 }
 if(typeof bgcolor != 'undefined'){
-options.bgcolor = bgcolor;
+  options.bgcolor = bgcolor;
 }
 //call narcisse manually
 narcisse(id, options);
 
 //an example source for getting values (id & options):
-<a class="narcisse btn btn-lg btn-warning" data-narcisse-id="pikachu" data-narcisse-position="56" data-narcisse-path="img/pikachu.png" href="#" title="show pikachu">Click to use Pikachu ! (*.png)</a>
+//<a class="narcisse btn btn-lg btn-warning" data-narcisse-id="pikachu" data-narcisse-position="56" data-narcisse-path="img/pikachu.png" href="#" title="show pikachu">Click to use Pikachu ! (*.png)</a>
 ```
 
 Licence
