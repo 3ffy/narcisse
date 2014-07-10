@@ -47,26 +47,25 @@ Usage (JS anecdotic part)
 
 ```javascript
 var narcisseRessources = {
-    'venise1':
-        {
-path: 'img/venise1.jpg',
-position: 46
-        },
-    'venise2':
-        {
-path: 'img/venise2.jpg',
-position: 50
-
-        },
-    'venise3':
-        {
-path: 'img/venise3.jpg',
-position: 46
-        },
-    'venise4':
-        {
-path: 'img/venise4.jpg'
-        }
+  'venise1':
+  {
+     path: 'img/venise1.jpg',
+     position: 46
+  },
+  'venise2':
+  {
+     path: 'img/venise2.jpg',
+     position: 50
+  },
+  'venise3':
+  {
+     path: 'img/venise3.jpg',
+     position: 46
+  },
+  'venise4':
+  {
+     path: 'img/venise4.jpg'
+  }
 };
 ```
 
