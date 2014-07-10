@@ -31,11 +31,11 @@ The solution
 Live demo
 ---------
 
-<http://codepen.io/3ffy/pen/HxEet>
+<http://codepen.io/3ffy/pen/CmaGq>
 
-[![A screenshot of Narcisse in action](https://raw.githubusercontent.com/3ffy/narcisse/master/img/demo2.jpg)](http://codepen.io/3ffy/pen/HxEet)
+[![A screenshot of Narcisse in action](https://raw.githubusercontent.com/3ffy/narcisse/master/img/demo2.jpg)](http://codepen.io/3ffy/pen/CmaGq)
 
-*(or get a look into the `demo/` folder to find the static version)*
+*(Use the CodePen to get a good idea of Narcisse, but pls refer to the static demo version and launch the `index.htm` file because some features are not available on CodePen (svg support, uncatched js errors, etc.))*
 
 > Resize the windows you will see a true fluid layout with the background image always positionned at his best.
 > PS : To simplify the demo and because its purpose wasn't about bootstrap navbar, i used 2 different navbar. If you decide to fork narcisse in your own project, please don't be evil : use only 1 navbar and style it ! Scientist proved each time you duplicate some content, a kitten die somewhere.
@@ -48,3 +48,5 @@ All files excepts the pictures and images are under the MIT licence, so you can 
 The pictures are taken by your servitor during a personal trip at Venice (Italie). They are not part of the licence, please don't use them without my agreement !
 
 The images are random pokemon images taken over the internet for that demo purpose only. Don't use them without author agreement.
+
+> :heart: This code is made with love, please give it some love back ! - 3ffy
